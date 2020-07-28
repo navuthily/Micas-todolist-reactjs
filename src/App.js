@@ -47,15 +47,12 @@ displayAll(){
 }
 clearCompleted(){
  const {todoItems}= this.state;
- console.log(todoItems)
-
-var newArray = todoItems.filter(function (el) {
+ var newTodos = todoItems.filter(function (el) {
   return el.isComplete===false;
 });
 
-
 this.setState({
-  todoItems:[...newArray]
+  todoItems:[...newTodos]
 })
 }
 
@@ -182,7 +179,10 @@ changeTodoName = (id, event) => {
   this.setState({todoItems:todoItems});
 }
   render() {
-  const {newItem}=this.state;
+  const {newItem, todoItems}=this.state;
+  var newTodos = todoItems.filter(function (el) {
+    return el.isComplete===true;
+  });
     return (
       <div className='App' onClick={this.onItemClicked}>
         <div className='Header'>
@@ -194,7 +194,11 @@ changeTodoName = (id, event) => {
              <button onClick={this.displayAll}>All</button>
              <button onClick={this.displayAction}>Action</button>
              <button onClick={this.displayCompleted}>Completed</button> 
-             <div><button onClick={this.clearCompleted}>Clear Completed</button> </div>
+    
+            { (newTodos.length >0)
+              ? <div><button onClick={this.clearCompleted}>Clear Completed</button> </div>
+              :<div></div>
+            }
            </div>
       </div>
     );
