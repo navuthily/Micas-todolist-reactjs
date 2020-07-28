@@ -21,6 +21,7 @@ class App extends Component {
   this.displayAll = this.displayAll.bind(this);
   this.displayAction= this.displayAction.bind(this);
   this.displayCompleted= this.displayCompleted.bind(this); 
+  this.clearCompleted= this.clearCompleted.bind(this); 
 }
 displayAction(){
   this.setState({
@@ -44,8 +45,26 @@ displayAll(){
     selectFinish: false
   })
 }
+clearCompleted(){
+//chộ này ko liên quan chi hết để lấy id
+ // cái này xóa nhiều item chứ ko phải 1 item
+ const {todoItems}= this.state;
+ console.log(todoItems)
+//  this.setState({
+//    todoItems:[   ...todoItems.slice(0, 3)]
+//  })
+var newArray = todoItems.filter(function (el) {
+  return el.isComplete===false;
+});
+
+
+this.setState({
+  todoItems:[...newArray]
+})
+}
+
  showMenuBar = () => {
-  const {todoItems, selectAction, selectAll, selectFinish}=this.state;
+  const {todoItems, selectAction, selectAll, selectFinish,clearCompleted}=this.state;
   if(todoItems.length>0){
     return todoItems.map((item, index) => {
       console.log(item.id)
@@ -58,6 +77,7 @@ displayAll(){
       selectAction={selectAction}
       selectAll={selectAll}
       selectFinish={selectFinish}
+      clearCompleted={clearCompleted}
       />;
     });
   }
@@ -185,6 +205,7 @@ changeTodoName = (id, event) => {
              <button onClick={this.displayAll}>All</button>
              <button onClick={this.displayAction}>Action</button>
              <button onClick={this.displayCompleted}>Completed</button> 
+             <div><button onClick={this.clearCompleted}>Clear Completed</button> </div>
            </div>
       </div>
     );
