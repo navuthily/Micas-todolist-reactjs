@@ -46,13 +46,9 @@ displayAll(){
   })
 }
 clearCompleted(){
-//chộ này ko liên quan chi hết để lấy id
- // cái này xóa nhiều item chứ ko phải 1 item
  const {todoItems}= this.state;
  console.log(todoItems)
-//  this.setState({
-//    todoItems:[   ...todoItems.slice(0, 3)]
-//  })
+
 var newArray = todoItems.filter(function (el) {
   return el.isComplete===false;
 });
@@ -129,9 +125,7 @@ onKeyUp(event){
 
 }
 onAdd(event) {
-  
   event.preventDefault()
- 
   var text = this.newItem.value;
   if(!text){
     return;
@@ -153,7 +147,6 @@ onAdd(event) {
         ...this.state.todoItems
       ]
     })
-
   }
 }
 onChange(event){
@@ -182,13 +175,10 @@ changeTodoName = (id, event) => {
   const index = this.state.todoItems.findIndex((item)=> {
       return (item.id === id);
   })
-
   const item = Object.assign({}, this.state.todoItems[index]);
   item.name = event.target.value;
-
   const todoItems = Object.assign([], this.state.todoItems);
   todoItems[index] = item;
-
   this.setState({todoItems:todoItems});
 }
   render() {
@@ -199,7 +189,6 @@ changeTodoName = (id, event) => {
           <input type='text' className='input-for-add'placeholder='Let add todolist' onKeyUp={this.onKeyUp} onChange={this.onChange} value={newItem} ref={input => this.newItem =input}/>
          <button onClick={this.onAdd}  className='add' onChange={this.onChange}type="submit"> <FontAwesomeIcon icon={faPlus} ></FontAwesomeIcon></button>
         </div>
-        
            {this.showMenuBar()}
            <div className='choose'>
              <button onClick={this.displayAll}>All</button>
@@ -213,4 +202,3 @@ changeTodoName = (id, event) => {
 }
 
 export default App;
-//display:none
