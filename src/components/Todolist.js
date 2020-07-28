@@ -3,10 +3,17 @@ import { faCheckCircle , faTimesCircle, faPencilAlt} from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class Todolist extends Component {
   render() {
-    const {onClick,onRemove, onEdit, item, changeEvent} = this.props;
-    let className ='TodoItem ';
+    const {onClick,onRemove, onEdit, item, changeEvent,selectAction, selectAll, selectFinish} = this.props;
+    var className ='TodoItem ';
     if(item.isComplete===true){
       className +='TodoItem-complete';
+    }
+    if((item.isComplete===true)&&(selectAction===true)){
+      className +='TodoItem-complete no-display';
+    }
+    if((item.isComplete===false)&&(selectFinish===true)){
+      className +='no-display';
+      console.log(className+'nef nef')
     }
     return (
      <div>

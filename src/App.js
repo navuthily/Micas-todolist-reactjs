@@ -9,28 +9,55 @@ class App extends Component {
    super(props);
    this.state ={
    newItem:'',
-    todoItems : [
-     
-    ]
+   todoItems : [], 
+   isComplete: false, 
+   selectAction :false,
+   selectAll: true,
+   selectFinish: false
   }
   this.onKeyUp =this.onKeyUp.bind(this);
   this.onChange=this.onChange.bind(this);
   this.onAdd= this.onAdd.bind(this);
- }
+  this.displayAll = this.displayAll.bind(this);
+  this.displayAction= this.displayAction.bind(this);
+  this.displayCompleted= this.displayCompleted.bind(this); 
+}
+displayAction(){
+  this.setState({
+    selectAction: true,
+    selectAll: false,
+    selectFinish: false
+  })
+}
+displayCompleted(){
+  this.setState({
+    selectAction: false,
+    selectAll: false,
+    selectFinish: true
+  })
+}
   
+displayAll(){
+  this.setState({
+    selectAction: false,
+    selectAll: true,
+    selectFinish: false
+  })
+}
  showMenuBar = () => {
-  const {todoItems}=this.state;
+  const {todoItems, selectAction, selectAll, selectFinish}=this.state;
   if(todoItems.length>0){
     return todoItems.map((item, index) => {
       console.log(item.id)
-      return <Todolist key={item.id} item={item}
-    
+      return <Todolist 
+      key={item.id}
+      item={item}
       onClick={this.onItemClicked(item)}  
       onRemove={(e)=>this.onRemoveItem(item)}
-
-      changeEvent={this.changeUserName.bind(this, item.id)}
-    
-      key={item.id }
+      changeEvent={this.changeTodoName.bind(this, item.id)} 
+      selectAction={selectAction}
+      selectAll={selectAll}
+      selectFinish={selectFinish}
       />;
     });
   }
@@ -128,7 +155,7 @@ onRemoveItem(item){
   }
 }
 
-changeUserName = (id, event) => {
+changeTodoName = (id, event) => {
   if (event.target.value.length === 0) {
     return;
   }
@@ -154,10 +181,15 @@ changeUserName = (id, event) => {
         </div>
         
            {this.showMenuBar()}
-           
+           <div className='choose'>
+             <button onClick={this.displayAll}>All</button>
+             <button onClick={this.displayAction}>Action</button>
+             <button onClick={this.displayCompleted}>Completed</button> 
+           </div>
       </div>
     );
   }
 }
 
 export default App;
+//display:none

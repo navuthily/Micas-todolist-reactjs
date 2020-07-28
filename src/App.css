@@ -145,3 +145,17 @@ h6{
   outline: none;
   border: none;
 }
+input{
+  outline: none;
+  border: none;
+}
+button{
+  outline: none;
+  border: none;
+}
+.choose{
+  display: inline;
+}
+.no-display{
+  display: none;
+}
