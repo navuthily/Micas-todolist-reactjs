@@ -58,16 +58,15 @@ a{
 a:hover{
   text-decoration: none !important;
 }
-.facheckcircle{
+.check-action{
   color: #fff;
   background-color: grey;
   border-radius:50% ;
   position: absolute;
   right: 260px;
-  top: 10px;
   font-size: 20px;
 }
-.TodoItem-complete .facheckcircle {
+.TodoItem-complete .check-action {
   color: green;
   background-color: honeydew;
   opacity: 1;
@@ -87,7 +86,7 @@ a:hover{
 .Header> input{
   border: none;
   margin-left: 0;
-  width: 75%;
+  width: 70%;
   padding: 10px;
  
  
@@ -158,4 +157,8 @@ button{
 }
 .no-display{
   display: none;
+}
+.finished-all{
+background-color: transparent;
+font-size: 20px;
 }

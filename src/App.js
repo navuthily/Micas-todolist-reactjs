@@ -1,205 +1,267 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-import Todolist from './components/Todolist'
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Todolist from "./components/Todolist";
+import {
+  faCheckCircle,
+  faTimesCircle,
+  faPencilAlt,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class App extends Component {
- constructor(props) {
-   super(props);
-   this.state ={
-   newItem:'',
-   todoItems : [], 
-   isComplete: false, 
-   selectAction :false,
-   selectAll: true,
-   selectFinish: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      newItem: "",
+      todoItems: [],
+      isComplete: false,
+      selectAction: false,
+      selectAll: true,
+      selectFinish: false,
+    };
+    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onAdd = this.onAdd.bind(this);
+    this.displayAll = this.displayAll.bind(this);
+    this.displayAction = this.displayAction.bind(this);
+    this.displayCompleted = this.displayCompleted.bind(this);
+    this.clearCompleted = this.clearCompleted.bind(this);
+    this.onFinishedAll = this.onFinishedAll.bind(this);
   }
-  this.onKeyUp =this.onKeyUp.bind(this);
-  this.onChange=this.onChange.bind(this);
-  this.onAdd= this.onAdd.bind(this);
-  this.displayAll = this.displayAll.bind(this);
-  this.displayAction= this.displayAction.bind(this);
-  this.displayCompleted= this.displayCompleted.bind(this); 
-  this.clearCompleted= this.clearCompleted.bind(this); 
-}
-displayAction(){
-  this.setState({
-    selectAction: true,
-    selectAll: false,
-    selectFinish: false
-  })
-}
-displayCompleted(){
-  this.setState({
-    selectAction: false,
-    selectAll: false,
-    selectFinish: true
-  })
-}
-  
-displayAll(){
-  this.setState({
-    selectAction: false,
-    selectAll: true,
-    selectFinish: false
-  })
-}
-clearCompleted(){
- const {todoItems}= this.state;
- var newTodos = todoItems.filter(function (el) {
-  return el.isComplete===false;
-});
-
-this.setState({
-  todoItems:[...newTodos]
-})
-}
-
- showMenuBar = () => {
-  const {todoItems, selectAction, selectAll, selectFinish,clearCompleted}=this.state;
-  if(todoItems.length>0){
-    return todoItems.map((item, index) => {
-      console.log(item.id)
-      return <Todolist 
-      key={item.id}
-      item={item}
-      onClick={this.onItemClicked(item)}  
-      onRemove={(e)=>this.onRemoveItem(item)}
-      changeEvent={this.changeTodoName.bind(this, item.id)} 
-      selectAction={selectAction}
-      selectAll={selectAll}
-      selectFinish={selectFinish}
-      clearCompleted={clearCompleted}
-      />;
+  displayAction() {
+    this.setState({
+      selectAction: true,
+      selectAll: false,
+      selectFinish: false,
     });
   }
-    
-  if(todoItems.length === 0) {
-    return <div className='nothing-here'>
-         
-           </div>
-  } 
-};
-onItemClicked(item) {
-  return (event)=>{
-    const isComplete= item.isComplete;
-    const {todoItems}=this.state;
-    const index = todoItems.indexOf(item);
-    console.log(index+"<index")
+  displayCompleted() {
     this.setState({
-      todoItems:[
-        ...todoItems.slice(0, index),
-        {
-          ...item,
-          isComplete:!isComplete
-        },
-        ...todoItems.slice(index+1)
-      ]
-    })
+      selectAction: false,
+      selectAll: false,
+      selectFinish: true,
+    });
   }
-}
-onKeyUp(event){
 
-  if(event.keyCode ===13){
-    let text = this.newItem.value;
-    console.log(text);
-  if(!text){
-    return;
-  }
-  text= text.trim();
-  if(!text){
-    return;
-  }
-  this.setState({
-    todoItems:[
-      {name:text,isComplete:false},
-      ...this.state.todoItems
-    ]
-  })
-  }
-  
-
-}
-onAdd(event) {
-  event.preventDefault()
-  var text = this.newItem.value;
-  if(!text){
-    return;
-  }
-  text= text.trim();
-  if(!text){
-    return;
-  }
-  console.log(text);
-  if (this.state.name !== '')
-  {
+  displayAll() {
     this.setState({
-      todoItems:[
-        {
-          name:text,
-          isComplete:false,
-          id:Date.now()
-        },
-        ...this.state.todoItems
-      ]
-    })
+      selectAction: false,
+      selectAll: true,
+      selectFinish: false,
+    });
   }
-}
-onChange(event){
-  this.setState({
-    newItem:event.target.value
-  })
-}
-onRemoveItem(item){
-  const newItem =this.state.todoItems.filter(todoItems=>{
-    return todoItems !==item;
-  })
-  this.setState({
-    todoItems:[...newItem]
-  })
-  if(newItem.length ===0){
-    this.setState({
-      message:'No item on your list, add some'
-    })
-  }
-}
+  clearCompleted() {
+    const { todoItems } = this.state;
+    var newTodos = todoItems.filter(function (el) {
+      return el.isComplete === false;
+    });
 
-changeTodoName = (id, event) => {
-  if (event.target.value.length === 0) {
-    return;
+    this.setState({
+      todoItems: [...newTodos],
+    });
   }
-  const index = this.state.todoItems.findIndex((item)=> {
-      return (item.id === id);
-  })
-  const item = Object.assign({}, this.state.todoItems[index]);
-  item.name = event.target.value;
-  const todoItems = Object.assign([], this.state.todoItems);
-  todoItems[index] = item;
-  this.setState({todoItems:todoItems});
-}
+  onFinishedAll() {
+    // ko co cai nao duoc selected -> click -> all selected
+    // co < total duoc select -> click -> all selected
+    // all selected -> click -> none selected
+    let totalSelected = 0;
+    for (const item of this.state.todoItems) {
+      if (item.isComplete) {
+        totalSelected++;
+      }
+    }
+
+    const newSelectedState = totalSelected < this.state.todoItems.length;
+    const todoItems = this.state.todoItems.map((item) => {
+      item.isComplete = newSelectedState;
+      return item;
+    });
+
+    this.setState({
+      todoItems,
+    });
+
+    console.log("todo items", todoItems);
+    // const { todoItems } = this.state;
+    // var newTodos = todoItems.find(function (el) {
+    //   // if(el.isComplete===false){
+    //   //   //const isComplete = el.isComplete;
+    //   //   console.log(el)
+    //   //   // this.setState({
+    //   //   //  isComplete: true
+    //   //   // })
+    //   // }
+    // });
+    // console.log(newTodos);
+    // this.setState({
+    //   todoItems: [...newTodos],
+    // });
+  }
+  showMenuBar = () => {
+    const {
+      todoItems,
+      selectAction,
+      selectAll,
+      selectFinish,
+      clearCompleted,
+    } = this.state;
+    if (todoItems.length > 0) {
+      return todoItems.map((item, index) => {
+        console.log("hhh", item.id);
+        return (
+          <Todolist
+            key={item.id}
+            item={item}
+            onClick={this.onItemClicked(item)}
+            onRemove={(e) => this.onRemoveItem(item)}
+            changeEvent={this.changeTodoName.bind(this, item.id)}
+            selectAction={selectAction}
+            selectAll={selectAll}
+            selectFinish={selectFinish}
+            clearCompleted={clearCompleted}
+          />
+        );
+      });
+    }
+
+    if (todoItems.length === 0) {
+      return <div className="nothing-here"></div>;
+    }
+  };
+  onItemClicked(item) {
+    return (event) => {
+      const isComplete = item.isComplete;
+      const { todoItems } = this.state;
+      const index = todoItems.indexOf(item);
+      this.setState({
+        todoItems: [
+          ...todoItems.slice(0, index),
+          {
+            ...item,
+            isComplete: !isComplete,
+          },
+          ...todoItems.slice(index + 1),
+        ],
+      });
+    };
+  }
+  onKeyUp(event) {
+    if (event.keyCode === 13) {
+      let text = this.newItem.value;
+      console.log(text);
+      if (!text) {
+        return;
+      }
+      text = text.trim();
+      if (!text) {
+        return;
+      }
+      this.setState({
+        todoItems: [{ name: text, isComplete: false }, ...this.state.todoItems],
+      });
+    }
+  }
+  onAdd(event) {
+    event.preventDefault();
+    var text = this.newItem.value;
+    if (!text) {
+      return;
+    }
+    text = text.trim();
+    if (!text) {
+      return;
+    }
+    if (this.state.name !== "") {
+      this.setState({
+        todoItems: [
+          {
+            name: text,
+            isComplete: false,
+            id: Date.now(),
+          },
+          ...this.state.todoItems,
+        ],
+      });
+    }
+  }
+  onChange(event) {
+    this.setState({
+      newItem: event.target.value,
+    });
+  }
+  onRemoveItem(item) {
+    const newItem = this.state.todoItems.filter((todoItems) => {
+      return todoItems !== item;
+    });
+    this.setState({
+      todoItems: [...newItem],
+    });
+    if (newItem.length === 0) {
+      this.setState({
+        message: "No item on your list, add some",
+      });
+    }
+  }
+
+  changeTodoName = (id, event) => {
+    if (event.target.value.length === 0) {
+      return;
+    }
+    const index = this.state.todoItems.findIndex((item) => {
+      return item.id === id;
+    });
+    const item = Object.assign({}, this.state.todoItems[index]);
+    item.name = event.target.value;
+    const todoItems = Object.assign([], this.state.todoItems);
+    todoItems[index] = item;
+    this.setState({ todoItems: todoItems });
+  };
   render() {
-  const {newItem, todoItems}=this.state;
-  var newTodos = todoItems.filter(function (el) {
-    return el.isComplete===true;
-  });
+    const { newItem, todoItems } = this.state;
+    var newTodos = todoItems.filter(function (el) {
+      return el.isComplete === true;
+    });
     return (
-      <div className='App' onClick={this.onItemClicked}>
-        <div className='Header'>
-          <input type='text' className='input-for-add'placeholder='Let add todolist' onKeyUp={this.onKeyUp} onChange={this.onChange} value={newItem} ref={input => this.newItem =input}/>
-         <button onClick={this.onAdd}  className='add' onChange={this.onChange}type="submit"> <FontAwesomeIcon icon={faPlus} ></FontAwesomeIcon></button>
+      <div className="App" onClick={this.onItemClicked}>
+        <div className="Header">
+          <button className="finished-all" onClick={this.onFinishedAll}>
+            <FontAwesomeIcon className="facheckAll" icon={faCheckCircle} />
+          </button>
+          <input
+            type="text"
+            className="input-for-add"
+            placeholder="Let add todolist"
+            onKeyUp={this.onKeyUp}
+            onChange={this.onChange}
+            value={newItem}
+            ref={(input) => (this.newItem = input)}
+          />
+          <button
+            onClick={this.onAdd}
+            className="add"
+            onChange={this.onChange}
+            type="submit"
+          >
+            {" "}
+            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+          </button>
         </div>
-           {this.showMenuBar()}
-           <div className='choose'>
-             <button onClick={this.displayAll}>All</button>
-             <button onClick={this.displayAction}>Action</button>
-             <button onClick={this.displayCompleted}>Completed</button> 
-    
-            { (newTodos.length >0)
-              ? <div><button onClick={this.clearCompleted}>Clear Completed</button> </div>
-              :<div></div>
-            }
-           </div>
+        {this.showMenuBar()}
+
+        <div className="choose">
+          <button onClick={this.displayAll}>All</button>
+          <button onClick={this.displayAction}>Action</button>
+          <button onClick={this.displayCompleted}>Completed</button>
+
+          {newTodos.length > 0 ? (
+            <div>
+              <button onClick={this.clearCompleted}>Clear Completed</button>{" "}
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
     );
   }

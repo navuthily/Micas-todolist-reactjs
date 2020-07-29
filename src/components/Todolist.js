@@ -13,12 +13,11 @@ class Todolist extends Component {
     }
     if((item.isComplete===false)&&(selectFinish===true)){
       className +='no-display';
-      console.log(className+'nef nef')
     }
     return (
      <div>
       <div className={className } >
-        <FontAwesomeIcon onClick={onClick} className='facheckcircle' icon={faCheckCircle} />
+        <FontAwesomeIcon onClick={onClick} className='check-action' icon={faCheckCircle} />
         <input onChange={changeEvent} defaultValue={item.name} className='item'/>
         <button className='remove'  onClick ={onRemove}><FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon> </button>
       </div>
