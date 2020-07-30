@@ -2,58 +2,19 @@
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
+  width: 600px;
   border: 0.5px solid #cccfcd;
- 
-
-  font-weight: bolder;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  font-size: 24px;
 }
 
 .TodoItem{
  margin: auto;
-  padding: 5px;
+ padding: 5px;
  position: relative;
  border-top:0.1px solid #cccfcd;
 }
 a{
   text-decoration: none;
-  
- 
 }
 a:hover{
   text-decoration: none !important;
@@ -62,22 +23,19 @@ a:hover{
   color: #fff;
   background-color: grey;
   border-radius:50% ;
+  font-size: 24px;
   position: absolute;
-  right: 260px;
-  font-size: 20px;
+  left: 20px;
 }
 .TodoItem-complete .check-action {
-  color: green;
-  background-color: honeydew;
+  background-color: #88e1c0;
+  color:#fff;
   opacity: 1;
-  position: absolute;
-  right: 260px;
-  top: 10px;
-
 }
 .TodoItem-complete input{
   text-decoration: line-through;
   opacity: 0.3;
+  padding: 20px;
 }
 
 .Header> input:focus{
@@ -86,8 +44,8 @@ a:hover{
 .Header> input{
   border: none;
   margin-left: 0;
-  width: 70%;
-  padding: 10px;
+  width: 75%;
+  padding: 30px;
  
  
 }
@@ -96,69 +54,91 @@ a:hover{
 }
 .add{
   border-radius: 50%;
-  color: green;
-
+  color:#88e1c0;
+  position: relative;
+  top:5px;
 }
 .remove{
-color: grey;
-background-color: transparent;
-border: none;
- font-size:20px;
+  border-radius: 50%;
+ background-color:#f7a297  ;
+ color: white;
+ border: none;
+ font-size:24px;
  position: absolute;
-  left: 260px;
+ right: 20px;
+
 }
 .edit{
   color: grey;
   background-color: transparent;
   border: none;
-   font-size:20px;
-   position: absolute;
-    left: 230px;
-  }
+   font-size:24px;
 
-.nothing-here{
-  color: grey;
- background-image: unset;
- background-repeat: no-repeat;
-  height: 100px;
-  background-size: cover;
-  background-image: url('https://scontent.fdad3-1.fna.fbcdn.net/v/t1.0-9/68888192_2448951581866790_2708297439307104256_o.jpg?_nc_cat=106&_nc_sid=dd9801&_nc_ohc=kXsr-CskAf8AX-UOgp_&_nc_ht=scontent.fdad3-1.fna&oh=35d0ac1f8c70c0442dea22e9382aac22&oe=5EEC2116');
-}
+  }
 .input-for-add{
   color: gray;
-
   text-align: center;
   font-weight: bold;
+}
 
-}
-.TodoItem a{
-  color: gray;
-}
-h6{
-  padding: 0;
-  margin: 0;
-  display: inline;
-}
-.item{
-  color: gray;
-  outline: none;
-  border: none;
-}
+
+
 input{
   outline: none;
   border: none;
+  padding: 20px;
 }
 button{
   outline: none;
   border: none;
 }
-.choose{
-  display: inline;
+.footer{
+  width: 100%;
+color: #777;
+  text-align: start;
 }
+.footer p{
+ margin-left: 20px;
+}
+.footer button {
+  background-color: transparent;
+  border: gray 1px solid;
+  margin-left: 30px;
+  padding: 0 10px 0 10px;
+  border-radius: 5px;
+}
+.footer div{display: inline;}
+.footer button {
+  background-color: transparent;
+  border: pink 1px solid;
+}
+
 .no-display{
   display: none;
 }
 .finished-all{
-background-color: transparent;
-font-size: 20px;
+  color: #fff;
+  background-color: grey;
+  border-radius:50% ;
+  font-size: 24px;
+  position: relative;
+  top: 5px;
+}
+.totalItemAction{
+  display: inline;
+  font-size: 15px;
+  position: relative;
+  left: 0;
+}
+.todoapp {
+  width: 100%;
+  font-size: 100px;
+  font-weight: 100;
+  text-align: center;
+  color: rgba(175, 47, 47, 0.15);
+  text-rendering: optimizeLegibility;
+}
+.TodoItem svg{
+  position:absolute;
+  top:20px;
 }

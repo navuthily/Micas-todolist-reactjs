@@ -4,8 +4,6 @@ import "./App.css";
 import Todolist from "./components/Todolist";
 import {
   faCheckCircle,
-  faTimesCircle,
-  faPencilAlt,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -83,20 +81,7 @@ class App extends Component {
     });
 
     console.log("todo items", todoItems);
-    // const { todoItems } = this.state;
-    // var newTodos = todoItems.find(function (el) {
-    //   // if(el.isComplete===false){
-    //   //   //const isComplete = el.isComplete;
-    //   //   console.log(el)
-    //   //   // this.setState({
-    //   //   //  isComplete: true
-    //   //   // })
-    //   // }
-    // });
-    // console.log(newTodos);
-    // this.setState({
-    //   todoItems: [...newTodos],
-    // });
+
   }
   showMenuBar = () => {
     const {
@@ -125,9 +110,9 @@ class App extends Component {
       });
     }
 
-    if (todoItems.length === 0) {
-      return <div className="nothing-here"></div>;
-    }
+    // if (todoItems.length === 0) {
+    //   return <div className="nothing-here"></div>;
+    // }
   };
   onItemClicked(item) {
     return (event) => {
@@ -203,7 +188,6 @@ class App extends Component {
       });
     }
   }
-
   changeTodoName = (id, event) => {
     if (event.target.value.length === 0) {
       return;
@@ -220,49 +204,52 @@ class App extends Component {
   render() {
     const { newItem, todoItems } = this.state;
     var newTodos = todoItems.filter(function (el) {
+      return el.isComplete === false;
+    });
+    console.log(newTodos+"nêw");
+    var totalItemAction = newTodos.length;
+    var newTodos2 = todoItems.filter(function (el) {
       return el.isComplete === true;
     });
-    return (
+  return (
+<>
+      <h1 className='todoapp'>todos</h1>
       <div className="App" onClick={this.onItemClicked}>
-        <div className="Header">
-          <button className="finished-all" onClick={this.onFinishedAll}>
-            <FontAwesomeIcon className="facheckAll" icon={faCheckCircle} />
-          </button>
+   
+        <div className="Header">       
+            <FontAwesomeIcon onClick={this.onFinishedAll} className="finished-all"  icon={faCheckCircle} />
           <input
             type="text"
             className="input-for-add"
-            placeholder="Let add todolist"
+            placeholder="What needs to be done?"
             onKeyUp={this.onKeyUp}
             onChange={this.onChange}
             value={newItem}
             ref={(input) => (this.newItem = input)}
           />
-          <button
+            <FontAwesomeIcon    
             onClick={this.onAdd}
             className="add"
             onChange={this.onChange}
-            type="submit"
-          >
-            {" "}
-            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-          </button>
+             icon={faPlus}/>
         </div>
         {this.showMenuBar()}
-
-        <div className="choose">
+        <div className="footer">
+          <p className='totalItemAction'>{totalItemAction} items left</p>
           <button onClick={this.displayAll}>All</button>
           <button onClick={this.displayAction}>Action</button>
           <button onClick={this.displayCompleted}>Completed</button>
 
-          {newTodos.length > 0 ? (
+          {newTodos2.length > 0 ? (
             <div>
-              <button onClick={this.clearCompleted}>Clear Completed</button>{" "}
+              <button onClick={this.clearCompleted}>Clear Completed</button>
             </div>
           ) : (
             <div></div>
           )}
         </div>
       </div>
+      </>
     );
   }
 }

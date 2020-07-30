@@ -19,7 +19,7 @@ class Todolist extends Component {
       <div className={className } >
         <FontAwesomeIcon onClick={onClick} className='check-action' icon={faCheckCircle} />
         <input onChange={changeEvent} defaultValue={item.name} className='item'/>
-        <button className='remove'  onClick ={onRemove}><FontAwesomeIcon icon={faTimesCircle}></FontAwesomeIcon> </button>
+       <FontAwesomeIcon className='remove'  onClick ={onRemove} icon={faTimesCircle}></FontAwesomeIcon>
       </div>
       <div>
       </div>
