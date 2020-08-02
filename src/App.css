@@ -1,38 +1,139 @@
 .App {
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  border: 0.5px solid #cccfcd;
+  font-size: 24px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.TodoItem{
+ margin: auto;
+ padding: 5px;
+ position: relative;
+ border-top:0.1px solid #cccfcd;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: none !important;
+}
+.check-action{
+  font-size: 24px;
+  position: absolute;
+  left: 50px;
+}
+.TodoItem-complete .check-action {
+  color: #88e1c0;
+}
+.TodoItem-complete input{
+  text-decoration: line-through;
+  opacity: 0.3;
+  padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.Header> input:focus{
+  border: none;
+}
+.Header> input{
+  border: none;
+  margin-left: 0;
+  width: 75%;
+  padding: 30px;
+ 
+ 
+}
+.Header{
+  border-bottom:0.1px solid #cccfcd ;
+}
+.Header .add{
+
+  color:#88e1c0;
+  
+}
+.TodoItem .remove{
+ font-size:24px;
+ position: absolute;
+ right: 12%;
+ color:pink;
+
+}
+.edit{
+  color: grey;
+  background-color: transparent;
+  border: none;
+   font-size:24px;
+
   }
+.input-for-add{
+
+  text-align: center;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+
+input{
+  outline: none;
+  border: none;
+  padding: 20px;
+}
+button{
+  outline: none;
+  border: none;
+}
+.footer{
+  width: 100%;
+  color: #777;
+  text-align: start;
+  padding: 10px 0 15px 0;
+  border-top:0.1px solid #cccfcd ;
+}
+.footer p{
+ margin-left: 20px;
+}
+.footer button {
+  background-color: transparent;
+  border: gray 1px solid;
+  margin-left: 30px;
+  padding: 0 10px 0 10px;
+  border-radius: 5px;
+}
+.footer div{
+  display: inline;
+}
+.footer button {
+  background-color: transparent;
+  border: pink 1px solid;
 }
 
-.App-link {
-  color: #61dafb;
+.no-display{
+  display: none;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.finished-all{
+  color: #fff;
+  background-color: grey;
+  border-radius:50% ;
+  font-size: 24px;
+  position: relative;
+  top: 5px;
+}
+.totalItemAction{
+  display: inline;
+  font-size: 15px;
+  position: relative;
+  left: 0;
+}
+.todoapp {
+  width: 100%;
+  font-size: 100px;
+  font-weight: 100;
+  text-align: center;
+  color: rgba(175, 47, 47, 0.15);
+  text-rendering: optimizeLegibility;
+}
+.TodoItem svg{
+  position:absolute;
+  top:20px;
 }
