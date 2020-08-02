@@ -18,14 +18,6 @@ class TodoList extends Component {
       selectAll: true,
       selectFinish: false,
     };
-    this.onKeyUp = this.onKeyUp.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onAdd = this.onAdd.bind(this);
-    this.displayAll = this.displayAll.bind(this);
-    this.displayAction = this.displayAction.bind(this);
-    this.displayCompleted = this.displayCompleted.bind(this);
-    this.clearCompleted = this.clearCompleted.bind(this);
-    this.onFinishedAll = this.onFinishedAll.bind(this);
   }
   displayAction() {
     this.setState({
@@ -262,21 +254,21 @@ class TodoList extends Component {
   return (
 <>
       <h1 className='todoapp'>todos</h1>
-      <div className="App" onClick={this.onItemClicked}>
+      <div className="App" onClick={this.onItemClicked}   >
         <div className="Header">       
-            <CheckOutlined onClick={this.onFinishedAll}   />
+            <CheckOutlined onClick={()=>this.onFinishedAll()}   />
           <input
             type="text"
             className="input-for-add"
             placeholder="What needs to be done?"
-            onKeyUp={this.onKeyUp}
-            onChange={this.onChange}
+            onKeyUp={(e)=>this.onKeyUp(e)}
+            onChange={(e)=>this.onChange(e)}
             value={newItem}
             ref={(input) => (this.newItem = input)}
           />
             <PlusOutlined 
-            onClick={this.onAdd}
-            onChange={this.onChange}
+            onClick={(e)=>this.onAdd(e)}
+            onChange={(e)=>this.onChange(e)}
             className="add"
              />
         </div>
@@ -285,13 +277,13 @@ class TodoList extends Component {
         {todoItems.length > 0 ? (
           <div className="footer">
             <p className='totalItemAction'>{totalItemAction} items left</p>
-            <Button onClick={this.displayAll}>All</Button>
-            <Button onClick={this.displayAction}>Action</Button>
-            <Button onClick={this.displayCompleted}>Completed</Button>
+            <Button onClick={()=>this.displayAll()}>All</Button>
+            <Button onClick={()=>this.displayAction()}>Action</Button>
+            <Button onClick={()=>this.displayCompleted()}>Completed</Button>
             {/* điều kiện để hiển thị Button 'Clear Completed' */}
             {todoCompleted.length > 0 ? (
               <div>
-                <Button onClick={this.clearCompleted}>Clear Completed</Button>
+                <Button onClick={()=>this.clearCompleted()}>Clear Completed</Button>
               </div>
                ) : (
               <div></div>
