@@ -3,10 +3,9 @@ import "../App.css";
 import 'antd/dist/antd.css'
 import {  Button } from 'antd';
 import { CheckOutlined, PlusOutlined} from '@ant-design/icons';
-import callApi from "../utils/apiCaller";
+import callApi from "../utils/api-caller";
 import TodoItem from "./TodoItem";
-import {API_URL}  from '../constants/Config'
-import axios from 'axios';
+import {API_URL}  from '../constants/config'
 class TodoList extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +46,7 @@ class TodoList extends Component {
     var newTodos = todoItems.filter(function (el) {
       return el.isComplete === false;
     })
-   await  axios.delete(`${API_URL}/todos`, {
+    callApi("todos", "delete", {
       data: {
         todoItems: [...newTodos]
       }
@@ -68,9 +67,7 @@ class TodoList extends Component {
       item.isComplete = newSelectedState;
       return item;
     });
-
-  
-     axios.put(`${API_URL}/todos`)
+     callApi(`${API_URL}/todos`, "put")
      .then(() =>{
       this.setState({
         todoItems,
@@ -112,8 +109,8 @@ class TodoList extends Component {
       const { todoItems } = this.state;
       const index = todoItems.indexOf(item);
       var _id=item._id;
-      var url =`${API_URL}/todos/select/${_id}`;
-       axios.patch(url)
+      var url =`todos/select/${_id}`;
+  callApi(url, "patch")
        .then( ()=>{
         this.setState({
           todoItems: [
@@ -141,14 +138,9 @@ class TodoList extends Component {
       if (!text) {
         return;
       }
-      await axios({
-        method: "post",
-        url: "/todos",
-        baseURL: API_URL,
-        data: {
-          content:text,
-          isComplete:false
-        },
+      callApi("todos", "post",{
+        content:text,
+        isComplete:false
       })
         .then(() => {
           this.setState({
@@ -171,13 +163,9 @@ class TodoList extends Component {
       return;
     }
     if (this.state.content !== "") {
-      await axios({
-        method: "post",
-        url: "/todos",
-        baseURL: API_URL,
-        data: {
-          content:text,
-        },
+      callApi("todos", "post",{
+        content:text,
+        isComplete:false
       })
         .then(() => {
           this.setState({
@@ -199,9 +187,9 @@ class TodoList extends Component {
       return todoItems !== item;
     });
     var _id= item._id;
-    var url =`${API_URL}/todos/${_id}`;
-  
-     axios.delete(url)
+     var url =`todos/${_id}`;
+ 
+  callApi(url, "delete")
      .then(() =>{
       this.setState({
         todoItems: [...newItem],
@@ -224,8 +212,8 @@ class TodoList extends Component {
     const todoItems = Object.assign([], this.state.todoItems);
     todoItems[index] = item;
     this.setState({ todoItems: todoItems });
-    var url =`${API_URL}/todos/${_id}`;
-    axios.patch(url,{
+    var url =`todos/${_id}`;
+    callApi(url, "patch",{
       content:event.target.value
     });
   };

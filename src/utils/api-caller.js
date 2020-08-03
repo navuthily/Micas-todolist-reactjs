@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Config from './../constants/Config'
+import * as Config from '../constants/config'
 export default function callApi(enpoint, method="get", body){
   return axios({
     method,
@@ -8,6 +8,5 @@ export default function callApi(enpoint, method="get", body){
   })
     .catch(err =>{
       console.log(err);
-    
   });
 }
