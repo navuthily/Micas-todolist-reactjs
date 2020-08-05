@@ -21,10 +21,15 @@ class TodoItem extends Component {
       </div>
     );
   }
-  static propTypes = {
-    onClick: PropTypes.func,
-    item: PropTypes.object
-  }
+ 
+}
+TodoItem.propTypes = {
+  onClick: PropTypes.func,
+  item: PropTypes.object,
+  onRemove:PropTypes.func,
+  changeEvent:PropTypes.func,
+  selectAction:PropTypes.func,
+  selectFinish:PropTypes.func
 }
 
 export default TodoItem;

@@ -97,7 +97,7 @@ class TodoList extends Component {
         console.log(err)
       });
   }
-  showMenuBar = () => {
+  showMenuBar() {
     const {
       todoItems,
       selectAction,
@@ -106,7 +106,7 @@ class TodoList extends Component {
       clearCompleted,
     } = this.state;
     if (todoItems) {
-      return todoItems.map((item, index) => {
+      return todoItems.map((item) => {
         return ( <
           TodoItem key = {
             item._id
@@ -118,7 +118,7 @@ class TodoList extends Component {
             this.onItemClicked(item)
           }
           onRemove = {
-            (e) => this.onRemoveItem(item)
+            () => this.onRemoveItem(item)
           }
           changeEvent = {
             this.changeTodoContent.bind(this, item._id)
@@ -139,7 +139,7 @@ class TodoList extends Component {
         );
       });
     }
-  };
+  }
   onItemClicked(item) {
     return () => {
       const isComplete = item.isComplete;
@@ -240,7 +240,7 @@ class TodoList extends Component {
       });
 
   }
-  changeTodoContent = (_id, event) => {
+  changeTodoContent (_id, event) {
     if (event.target.value.length === 0) {
       return;
     }
@@ -261,14 +261,13 @@ class TodoList extends Component {
     apiEditContent(_id, {
       content: event.target.value
     })
-  };
+  }
   componentDidMount() {
-    const {
-      todoItems
-    } = this.state;
     apiGetTodo().then((res) => {
-      if (res.data == null) {
-        todoItems = [];
+      if (!res.data) {
+        this.setState({
+          todoItems: []
+        });
       }
       this.setState({
         todoItems: res.data,
